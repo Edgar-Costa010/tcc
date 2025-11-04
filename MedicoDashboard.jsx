@@ -1,0 +1,4 @@
+import React, { useEffect, useState } from 'react';
+import api from '../api/api';
+import Layout from '../components/Layout';
+export default function MedicoDashboard(){ const [consultas, setConsultas] = useState([]); useEffect(()=>{ api.get('/consultas').then(res=>setConsultas(res.data)).catch(()=>{}); }, []); return (<Layout><h2>Minhas Consultas</h2><div className="card"><table className="table"><thead><tr><th>CPF Paciente</th><th>Data</th><th>Status</th><th>Observações</th></tr></thead><tbody>{consultas.map(c=>(<tr key={c.id}><td>{c.cpf_Paciente}</td><td>{new Date(c.dataConsulta).toLocaleString()}</td><td>{c.status}</td><td>{c.observacoes}</td></tr>))}</tbody></table></div></Layout>); }
